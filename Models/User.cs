@@ -7,10 +7,12 @@ namespace CSUserAPI.Models
     {
 
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string UserId { get; set; }
+        [BsonElement("firstName")]
         public string firstName { get; set; }
+        [BsonElement("lastName")]
         public string lastName { get; set; }
+        [BsonElement("password")]
         public string password { get; set; }
         
 
