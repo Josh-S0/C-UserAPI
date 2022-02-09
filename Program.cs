@@ -1,4 +1,4 @@
-using CSUserAPI.Database;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<MongoConnector>(new MongoConnector());
+builder.Services.AddSingleton<IMongoClient, MongoClient>(s =>
+{
+    return new MongoClient("mongodb://localhost:27017");
+});
 
 
 

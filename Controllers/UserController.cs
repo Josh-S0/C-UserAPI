@@ -1,5 +1,4 @@
-﻿using CSUserAPI.Database;
-using CSUserAPI.Models;
+﻿using CSUserAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -12,9 +11,10 @@ namespace CSUserAPI.Controllers
     {
         private IMongoCollection<User> userCollection;
 
-        public UserController(MongoConnector mongoConnector)
+        public UserController(IMongoClient client)
         {
-           userCollection = MongoConnector.mongoDb.GetCollection<User>("Users");
+            var database = client.GetDatabase("MainDB");
+           userCollection = database.GetCollection<User>("Users");
         }
 
         [HttpGet("/get")]
@@ -25,16 +25,14 @@ namespace CSUserAPI.Controllers
         [HttpGet("/get/{id}")]
         public User GetById(String id)
         {
-           List<User> userList = userCollection.Find(x => x.userId == id).ToList();
-            return userList.FirstOrDefault();
+            var idFilter = Builders<User>.Filter.Eq("userId", id);
+            return userCollection.Find(idFilter).FirstOrDefault();
         }
         [HttpGet("/search")]
         public User GetByCriteria(String criteria, String query)
         {
-            List<User> userList;
             var criteriaFilter = Builders<User>.Filter.Eq(criteria,query);
-            userList = userCollection.Find(criteriaFilter).ToList();
-            return userList.FirstOrDefault();
+            return userCollection.Find(criteriaFilter).FirstOrDefault();       
         }
         [HttpDelete("/delete/{id}")]
         public void DeleteById(String id)
