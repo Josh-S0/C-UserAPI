@@ -14,9 +14,9 @@ namespace CSUserAPI.Models
         public string lastName { get; set; }
         [BsonElement("email")]
         public string email { get; set; }
+        //store user password as hashByte
         [BsonElement("password")]
-        public string password { get; set; }
-
+        public byte[] password { get; set; }
         
     }
 }
