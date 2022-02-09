@@ -66,15 +66,17 @@ namespace CSUserAPI.Controllers
         [HttpGet("test")]
         public User getUserPassword(String id, String password)
         {
-            User user;
-            var idFilter = Builders<User>.Filter.Eq("userId", id);
-            user = userCollection.Find(idFilter).FirstOrDefault();
-
-            if (checkPassword(user.password, password))
+            User user = GetById(id);
+            if (user == null)
+            {
+                return null;
+            }
+            else if (checkPassword(user.password, password))
             {
                 return user;
             }
             return null;
+            
         }
     }
 }
