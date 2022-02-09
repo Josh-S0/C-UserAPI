@@ -8,23 +8,45 @@ namespace CSUserAPI.Controllers
 {
     [ApiController]
     [Route("api/User")]
-    public class UserController
+    public class UserController : Controller
     {
-       private IMongoCollection<User> userCollection = MongoConnector.mongoDb.GetCollection<User>("Users");
+        private IMongoCollection<User> userCollection;
+
+        public UserController(MongoConnector mongoConnector)
+        {
+           userCollection = MongoConnector.mongoDb.GetCollection<User>("Users");
+        }
 
         [HttpGet("/get")]
         public List<User> GetUsers()
         {
             return userCollection.Find(new BsonDocument()).ToList();
         }
-        [HttpPost("/add")]
-        public void AddUser()
+        [HttpGet("/get/{id}")]
+        public User GetById(String id)
         {
-            User user = new User();
-            user.firstName = "Josh";
-            user.lastName = "Suchit";
-            user.password = "password";
-            user.UserId = Guid.NewGuid().ToString();
+           List<User> userList = userCollection.Find(x => x.userId == id).ToList();
+            return userList.FirstOrDefault();
+        }
+        [HttpGet("/search")]
+        public User GetByCriteria(String criteria, String query)
+        {
+            List<User> userList;
+            var criteriaFilter = Builders<User>.Filter.Eq(criteria,query);
+            userList = userCollection.Find(criteriaFilter).ToList();
+            return userList.FirstOrDefault();
+        }
+        [HttpDelete("/delete/{id}")]
+        public void DeleteById(String id)
+        {
+            var deleteFilter = Builders<User>.Filter.Eq("userId", id);
+            userCollection.DeleteOne(deleteFilter);
+        }
+       
+        [HttpPost("/add")]
+        public void AddUser(User user)
+        {
+            user.userId = Guid.NewGuid().ToString();
             userCollection.InsertOne(user);
         }
 
