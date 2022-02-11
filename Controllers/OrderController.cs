@@ -10,7 +10,6 @@ namespace CSAPIProject.Controllers
     {
 
         private readonly IMongoCollection<User> userCollection;
-        private readonly IMongoCollection<Item> itemCollection;
         private readonly IMongoCollection<Order> orderCollection;
         private string date = DateTime.Now.ToString("dd-MM-yyyy");
         
@@ -19,7 +18,6 @@ namespace CSAPIProject.Controllers
         {
             var database = client.GetDatabase("MainDB");
             userCollection = database.GetCollection<User>("Users");
-            itemCollection = database.GetCollection<Item>("Items");
             orderCollection = database.GetCollection<Order>("Orders");
         }
 
@@ -38,11 +36,12 @@ namespace CSAPIProject.Controllers
             UpdateOrderList(order, userId);
         }
         [HttpPut()]
+        //updates relevant orderList on User collection
         public void UpdateOrderList(Order order, String userId)
         {
             var idFilter = Builders<User>.Filter.Eq("_id", userId);
             var user = userCollection.Find(idFilter).FirstOrDefault();
-            user.orders.Add(order);
+            user.orders.Add(order._id);
             userCollection.ReplaceOne(idFilter, user);
 
         }
@@ -53,7 +52,7 @@ namespace CSAPIProject.Controllers
             return orderCollection.Find(idFilter).FirstOrDefault();
         }
         [HttpGet("listOrders")]
-        public List<Order> GetOrdersFromUserId(String userId)
+        public List<string> GetOrdersFromUserId(String userId)
         {
             var orderFilter = Builders<User>.Filter.Eq("_id", userId);
             var user = userCollection.Find(orderFilter).FirstOrDefault();

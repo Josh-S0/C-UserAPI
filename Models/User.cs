@@ -17,11 +17,11 @@ namespace CSAPIProject.Models
         [BsonElement("password")]
         public byte[] password { get; set; }
         [BsonElement("orders")]
-        public List<Order> orders { get; set; }
+        public List<string> orders { get; set; }
 
         public User()
         {
-            this.orders = new List<Order>();
+            this.orders = new List<string>();
         }
     }
 }
