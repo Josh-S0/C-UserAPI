@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CSUserAPI.Models
+namespace CSAPIProject.Models
 {
     public class User
     {

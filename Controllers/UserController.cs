@@ -1,10 +1,10 @@
-﻿using CSUserAPI.Models;
-using CSUserAPI.Security;
+﻿using CSAPIProject.Models;
+using CSAPIProject.Security;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace CSUserAPI.Controllers
+namespace CSAPIProject.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -56,22 +56,22 @@ namespace CSUserAPI.Controllers
 
         //method to check stored hashbyte password against password
         [HttpGet]
-        public bool checkPassword(byte[] hashBytes, String password)
+        public bool CheckPassword(byte[] hashBytes, String password)
         {
             hash = new PasswordHash(hashBytes);
             return hash.Verify(password);
         }
 
-        //test method
-        [HttpGet("test")]
-        public User getUserPassword(String id, String password)
+        //login returns user object on successful attempt
+        [HttpGet("login")]
+        public User Login(String email, String password)
         {
-            User user = GetById(id);
+            User user = GetByCriteria("email", email);
             if (user == null)
             {
                 return null;
             }
-            else if (checkPassword(user.password, password))
+            else if (CheckPassword(user.password, password))
             {
                 return user;
             }

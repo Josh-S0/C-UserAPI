@@ -1,13 +1,13 @@
 ﻿using System.Security.Cryptography;
 
-namespace CSUserAPI.Security
+namespace CSAPIProject.Security
 {
     public sealed class PasswordHash
     {
 
         const int SaltSize = 16, HashSize = 20, HashIter = 10000;
         readonly byte[] _salt, _hash;
-        RandomNumberGenerator rng = RandomNumberGenerator.Create(); 
+        readonly RandomNumberGenerator rng = RandomNumberGenerator.Create(); 
         public PasswordHash(string password)
         {
             rng.GetBytes(_salt = new byte[SaltSize]);
