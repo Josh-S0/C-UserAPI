@@ -27,7 +27,7 @@ namespace CSAPIProject.Controllers
         [HttpGet("get/{id}")]
         public User GetById(String id)
         {
-            var idFilter = Builders<User>.Filter.Eq("userId", id);
+            var idFilter = Builders<User>.Filter.Eq("_id", id);
             return userCollection.Find(idFilter).FirstOrDefault();
         }
         [HttpGet("search")]
@@ -39,7 +39,7 @@ namespace CSAPIProject.Controllers
         [HttpDelete("delete/{id}")]
         public void DeleteById(String id)
         {
-            var deleteFilter = Builders<User>.Filter.Eq("userId", id);
+            var deleteFilter = Builders<User>.Filter.Eq("_id", id);
             userCollection.DeleteOne(deleteFilter);
         }
 
