@@ -5,7 +5,7 @@ namespace CSAPIProject.Models
     public class Order
     {
         [BsonId]
-        public string orderId { get; set; }
+        public string _id { get; set; }
         [BsonElement("orderDate")]
         public string orderDate { get; set; }
         [BsonElement("userId")]
@@ -13,14 +13,10 @@ namespace CSAPIProject.Models
         [BsonElement("items")]
         public List<Item> items { get; set; }
         [BsonElement("total")]
-        public double total { get { return this.total; } set { CalculateOrderTotal(); } }
+        public double total { get; set; }
 
-        public Order()
-        {
-            CalculateOrderTotal();
-        }
-
-        public void CalculateOrderTotal()
+        
+        public void SetOrderTotal()
         {
             double total = 0;
             foreach(Item item in items)

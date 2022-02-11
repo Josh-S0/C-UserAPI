@@ -22,7 +22,7 @@ namespace CSAPIProject.Controllers
         [HttpPost("add")]
         public void AddUser(User user, String password)
         {
-            user.userId = Guid.NewGuid().ToString();
+            user._id = Guid.NewGuid().ToString();
             hash = new PasswordHash(password);
             byte[] hashBytes = hash.ToArray();
             user.password = hashBytes;
@@ -41,9 +41,9 @@ namespace CSAPIProject.Controllers
         [HttpGet("auth")]
         public User Login(String email, String password)
         {
-            User user;
+            
             var emailFilter = Builders<User>.Filter.Eq(email, email);
-            user = userCollection.Find(emailFilter).FirstOrDefault();
+            var user = userCollection.Find(emailFilter).FirstOrDefault();
             if (user == null)
             {
                 return null;

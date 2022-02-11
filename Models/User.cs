@@ -6,7 +6,7 @@ namespace CSAPIProject.Models
     {
 
         [BsonId]
-        public string userId { get; set; }
+        public string _id { get; set; }
         [BsonElement("firstName")]
         public string firstName { get; set; }
         [BsonElement("lastName")]
@@ -16,7 +16,12 @@ namespace CSAPIProject.Models
         //store user password as hashByte
         [BsonElement("password")]
         public byte[] password { get; set; }
-      //[BsonElement("orders")]
-      //public List<Order> orders { get; set; }
+        [BsonElement("orders")]
+        public List<Order> orders { get; set; }
+
+        public User()
+        {
+            this.orders = new List<Order>();
+        }
     }
 }

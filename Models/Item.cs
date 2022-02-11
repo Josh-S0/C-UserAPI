@@ -5,7 +5,9 @@ namespace CSAPIProject.Models
     public class Item
     {
         [BsonId]
-        public string itemId { get; set; }
+        public string _id { get; set; }
+        [BsonElement("itemName")]
+        public string itemName { get; set; }
         [BsonElement("itemPrice")]
         public double itemPrice { get; set; }
         [BsonElement("url")]
