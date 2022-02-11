@@ -49,7 +49,7 @@ namespace CSAPIProject.Controllers
         [HttpGet("{id}")]
         public Order GetById(String id)
         {
-            var idFilter = Builders<Order>.Filter.Eq("_Id", id);
+            var idFilter = Builders<Order>.Filter.Eq("_id", id);
             return orderCollection.Find(idFilter).FirstOrDefault();
         }
         [HttpGet("listOrders")]
