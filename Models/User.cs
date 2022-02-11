@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace CSAPIProject.Models
 {
@@ -17,6 +16,7 @@ namespace CSAPIProject.Models
         //store user password as hashByte
         [BsonElement("password")]
         public byte[] password { get; set; }
-        
+      //[BsonElement("orders")]
+      //public List<Order> orders { get; set; }
     }
 }

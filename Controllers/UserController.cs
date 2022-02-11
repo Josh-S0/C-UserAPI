@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace CSAPIProject.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly IMongoCollection<User> userCollection;
@@ -43,40 +43,5 @@ namespace CSAPIProject.Controllers
             userCollection.DeleteOne(deleteFilter);
         }
 
-        //stores user with hashed password in the form of hashByte
-        [HttpPost("add")]
-        public void AddUser(User user, String password)
-        {
-            user.userId = Guid.NewGuid().ToString();
-            hash = new PasswordHash(password);
-            byte[] hashBytes = hash.ToArray();
-            user.password = hashBytes;
-            userCollection.InsertOne(user);
-        }
-
-        //method to check hashbyte password against password
-        [HttpGet]
-        public bool CheckPassword(byte[] hashBytes, String password)
-        {
-            hash = new PasswordHash(hashBytes);
-            return hash.Verify(password);
-        }
-
-        //login returns user object on successful attempt
-        [HttpGet("login")]
-        public User Login(String email, String password)
-        {
-            User user = GetByCriteria("email", email);
-            if (user == null)
-            {
-                return null;
-            }
-            else if (CheckPassword(user.password, password))
-            {
-                return user;
-            }
-            return null;
-            
-        }
     }
 }
