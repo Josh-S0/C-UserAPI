@@ -11,7 +11,7 @@ namespace CSAPIProject.Controllers
 
         private readonly IMongoCollection<User> userCollection;
         private readonly IMongoCollection<Order> orderCollection;
-        private string date = DateTime.Now.ToString("dd-MM-yyyy");
+ 
         
 
         public OrderController(IMongoClient client)
@@ -28,7 +28,7 @@ namespace CSAPIProject.Controllers
             {
                 _id = Guid.NewGuid().ToString(),
                 userId = userId,
-                orderDate = date,
+                orderDate =  = DateTime.Now.ToString("dd-MM-yyyy"),
                 items = items
             };
             order.SetOrderTotal();
