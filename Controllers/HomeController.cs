@@ -30,13 +30,13 @@ namespace CSAPIProject.Controllers
         [HttpGet("get/{id}")]
         public Item GetById(String id)
         {
-            var idFilter = Builders<Item>.Filter.Eq("itemId", id);
+            var idFilter = Builders<Item>.Filter.Eq("_id", id);
             return itemCollection.Find(idFilter).FirstOrDefault();
         }
         [HttpDelete("delete/{id}")]
         public void DeleteById(String id)
         {
-            var deleteFilter = Builders<Item>.Filter.Eq("itemId", id);
+            var deleteFilter = Builders<Item>.Filter.Eq("_id", id);
             itemCollection.DeleteOne(deleteFilter);
         }
 
