@@ -42,7 +42,7 @@ namespace CSAPIProject.Controllers
         public User Login(String email, String password)
         {
             
-            var emailFilter = Builders<User>.Filter.Eq(email, email);
+            var emailFilter = Builders<User>.Filter.Eq("email", email);
             var user = userCollection.Find(emailFilter).FirstOrDefault();
             if (user == null)
             {

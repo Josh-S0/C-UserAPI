@@ -19,7 +19,7 @@ namespace CSAPIProject.Controllers
             userCollection = database.GetCollection<User>("Users");
         }
 
-        [HttpGet("get")]
+        [HttpGet("all")]
         public List<User> GetUsers()
         {
             return userCollection.Find(new BsonDocument()).ToList();

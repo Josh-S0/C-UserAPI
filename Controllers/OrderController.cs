@@ -38,7 +38,7 @@ namespace CSAPIProject.Controllers
         [HttpPut()]
         public void UpdateOrderList(Order order, String userId)
         {
-            var idFilter = Builders<User>.Filter.Eq("userId", userId);
+            var idFilter = Builders<User>.Filter.Eq("_id", userId);
             var user = userCollection.Find(idFilter).FirstOrDefault();
             user.orders.Add(order);
             userCollection.ReplaceOne(idFilter, user);
@@ -53,7 +53,7 @@ namespace CSAPIProject.Controllers
         [HttpGet("listOrders")]
         public List<Order> GetOrdersFromUserId(String userId)
         {
-            var orderFilter = Builders<User>.Filter.Eq("userId", userId);
+            var orderFilter = Builders<User>.Filter.Eq("_id", userId);
             var user = userCollection.Find(orderFilter).FirstOrDefault();
             return user.orders;
         }
