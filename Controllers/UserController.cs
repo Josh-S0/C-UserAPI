@@ -54,7 +54,7 @@ namespace CSAPIProject.Controllers
             userCollection.InsertOne(user);
         }
 
-        //method to check stored hashbyte password against password
+        //method to check hashbyte password against password
         [HttpGet]
         public bool CheckPassword(byte[] hashBytes, String password)
         {
