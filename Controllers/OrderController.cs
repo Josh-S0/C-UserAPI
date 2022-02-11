@@ -28,7 +28,7 @@ namespace CSAPIProject.Controllers
             {
                 _id = Guid.NewGuid().ToString(),
                 userId = userId,
-                orderDate =  = DateTime.Now.ToString("dd-MM-yyyy"),
+                orderDate = DateTime.Now.ToString("dd-MM-yyyy"),
                 items = items
             };
             order.SetOrderTotal();
