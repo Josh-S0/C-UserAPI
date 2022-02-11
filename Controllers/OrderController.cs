@@ -26,11 +26,13 @@ namespace CSAPIProject.Controllers
         [HttpPost("confirm")]
         public void ConfirmOrder(List<Item> items, String userId)
         {
-            Order order = new Order();
-            order._id = Guid.NewGuid().ToString();
-            order.userId = userId;
-            order.orderDate = date;
-            order.items = items;
+            Order order = new Order
+            {
+                _id = Guid.NewGuid().ToString(),
+                userId = userId,
+                orderDate = date,
+                items = items
+            };
             order.SetOrderTotal();
             orderCollection.InsertOne(order);
             UpdateOrderList(order, userId);
