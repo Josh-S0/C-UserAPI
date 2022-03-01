@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +25,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="SignUp">Sign Up</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="SignIn">Sign In</a>
+                        </li>
+                        <li>
+                            <p>@ViewData["firstName"]</p>
+                            @if (ViewData["firstName"] != null)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">@ViewData["firstName"]</a>
+                            }
+                        </li>
+                        
                     </ul>
                 </div>
             </div>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp-WebApp\\CSharp-WebApp.csproj": {}
+    "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\CSharp-WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp-WebApp\\CSharp-WebApp.csproj": {
+    "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\CSharp-WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp-WebApp\\CSharp-WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\CSharp-WebApp.csproj",
         "projectName": "CSharp-WebApp",
-        "projectPath": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp-WebApp\\CSharp-WebApp.csproj",
+        "projectPath": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\CSharp-WebApp.csproj",
         "packagesPath": "C:\\Users\\joshi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp-WebApp\\obj\\",
+        "outputPath": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joshi\\AppData\\Roaming\\NuGet\\NuGet.Config",

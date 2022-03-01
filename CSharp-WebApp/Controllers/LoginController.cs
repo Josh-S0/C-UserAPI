@@ -48,20 +48,28 @@ namespace CSharp_WebApp.Controllers
         }
 
         //login returns user object on successful attempt
-        public IActionResult Login(String email, String password)
+        
+        public IActionResult AttemptLogin(User userIn)
         {
             
-            var emailFilter = Builders<User>.Filter.Eq("email", email);
+            var emailFilter = Builders<User>.Filter.Eq("email", userIn.email);
             var user = userCollection.Find(emailFilter).FirstOrDefault();
             if (user == null)
             {
-                return NotFound("Email not found");
+                ViewBag.badEmail = "Email not found";
+                return View("SignIn");
             }
-            else if (CheckPassword(user.password, password))
+            else if (CheckPassword(user.password, userIn.tempPW))
             {
-                return View(user);
+                
+                return RedirectToAction("Index", "Home", new {email = user.email});
+
             }
-            return BadRequest("Password incorrect");
+            else
+            {
+                ViewBag.badPass = "Incorrect Password";
+                return View("SignIn");
+            }
 
         }
 
