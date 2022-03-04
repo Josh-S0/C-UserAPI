@@ -18,8 +18,6 @@ namespace CSharp_WebApp.Models
         public byte[] password { get; set; }
         [BsonElement("orders")]
         public List<string> orders { get; set; }
-        [BsonIgnore]
-        public string tempPW { get; set; }
         public User()
         {
             this.orders = new List<string>();

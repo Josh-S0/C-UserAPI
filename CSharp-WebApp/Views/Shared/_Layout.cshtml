@@ -21,20 +21,26 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        </li>          
+                        @if (ViewData["firstName"] == null)
+                        {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="SignUp">Sign Up</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="SignIn">Sign In</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="SignIn">Sign In</a>
+                        </li>
+                        }
+                        @if (ViewData["firstName"] != null)
+                        {
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignOut">Sign Out</a>
                         </li>
                         <li>
-                            <p>@ViewData["firstName"]</p>
-                            @if (ViewData["firstName"] != null)
-                            {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">@ViewData["firstName"]</a>
-                            }
                         </li>
+                        }
+                        
                         
                     </ul>
                 </div>

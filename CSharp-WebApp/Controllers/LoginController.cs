@@ -2,20 +2,19 @@
 using CSharp_WebApp.Models;
 using CSharp_WebApp.Security;
 using MongoDB.Driver;
-
+using CSharp_WebApp.Database;
 
 namespace CSharp_WebApp.Controllers
 {
     
     public class LoginController : Controller
     {
-        private readonly IMongoCollection<User> userCollection;
+        private DBService dbService;
         private PasswordHash hash;
 
         public LoginController(IMongoClient client)
         {
-            var database = client.GetDatabase("MainDB");
-            userCollection = database.GetCollection<User>("Users");
+            dbService = new DBService(client);
         }
        
         public IActionResult SignUp()
@@ -29,15 +28,19 @@ namespace CSharp_WebApp.Controllers
 
         //stores user with hashed password in the form of hashByte
         [HttpPost]
-        public IActionResult SignUp(User user)
+        public IActionResult SignUp(UserView userV)
         {
+            var user = new User();
+            user.email = userV.email;
+            user.firstName = userV.firstName;
+            user.lastName = userV.lastName;
             user._id = Guid.NewGuid().ToString();
-            hash = new PasswordHash(user.tempPW);
+            hash = new PasswordHash(userV.password);
             byte[] hashBytes = hash.ToArray();
             user.password = hashBytes;
-            userCollection.InsertOne(user);
+            dbService.UserCollection.InsertOne(user);
             //placeholder
-            return new EmptyResult();
+            return RedirectToAction("Index","Home");
         }
 
         //method to check hashbyte password against password
@@ -49,17 +52,17 @@ namespace CSharp_WebApp.Controllers
 
         //login returns user object on successful attempt
         
-        public IActionResult AttemptLogin(User userIn)
+        public IActionResult AttemptLogin(UserView userIn)
         {
             
             var emailFilter = Builders<User>.Filter.Eq("email", userIn.email);
-            var user = userCollection.Find(emailFilter).FirstOrDefault();
+            var user = dbService.UserCollection.Find(emailFilter).FirstOrDefault();
             if (user == null)
             {
                 ViewBag.badEmail = "Email not found";
                 return View("SignIn");
             }
-            else if (CheckPassword(user.password, userIn.tempPW))
+            else if (CheckPassword(user.password, userIn.password))
             {
                 
                 return RedirectToAction("Index", "Home", new {email = user.email});

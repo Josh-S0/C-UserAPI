@@ -1,5 +1,5 @@
+using CSharp_WebApp.Controllers;
 using MongoDB.Driver;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,7 +8,6 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(s =>
 {
     return new MongoClient("mongodb://localhost:27017");
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
