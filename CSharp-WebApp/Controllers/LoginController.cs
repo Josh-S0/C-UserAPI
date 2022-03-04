@@ -9,12 +9,12 @@ namespace CSharp_WebApp.Controllers
     
     public class LoginController : Controller
     {
-        private DBService dbService;
+        private UserService userService;
         private PasswordHash hash;
 
         public LoginController(IMongoClient client)
         {
-            dbService = new DBService(client);
+            userService = new UserService(client);
         }
        
         public IActionResult SignUp()
@@ -38,7 +38,7 @@ namespace CSharp_WebApp.Controllers
             hash = new PasswordHash(userV.password);
             byte[] hashBytes = hash.ToArray();
             user.password = hashBytes;
-            dbService.UserCollection.InsertOne(user);
+            userService.UserCollection.InsertOne(user);
             //placeholder
             return RedirectToAction("Index","Home");
         }
@@ -56,7 +56,7 @@ namespace CSharp_WebApp.Controllers
         {
             
             var emailFilter = Builders<User>.Filter.Eq("email", userIn.email);
-            var user = dbService.UserCollection.Find(emailFilter).FirstOrDefault();
+            var user = userService.UserCollection.Find(emailFilter).FirstOrDefault();
             if (user == null)
             {
                 ViewBag.badEmail = "Email not found";
@@ -64,8 +64,8 @@ namespace CSharp_WebApp.Controllers
             }
             else if (CheckPassword(user.password, userIn.password))
             {
-                
-                return RedirectToAction("Index", "Home", new {email = user.email});
+                Response.Cookies.Append("LoggedUser",user.email);
+                return RedirectToAction("Index", "Home");
 
             }
             else

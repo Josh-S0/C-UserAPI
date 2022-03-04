@@ -9,21 +9,25 @@ namespace CSharp_WebApp.Controllers
    
     public class HomeController : Controller
     {
-        private DBService dbService;
+        private UserService userService;
+        private ItemService itemService;
         private User LoggedUser { get; set; }
 
         public HomeController(IMongoClient client)
         {
-            dbService = new DBService(client);
+            userService = new UserService(client);
+            itemService = new ItemService(client);
         }
 
-        public IActionResult Index(string email)
+        public IActionResult Index()
         {
-            if (email != null) {
-                LoggedUser = dbService.GetUserByEmail(email);
+            var requestEmail = Request.Cookies["LoggedUser"];
+            if (requestEmail!= null) {
+                LoggedUser = userService.GetUserByEmail(requestEmail);
                 ViewData["firstName"] = LoggedUser.firstName; 
             }
-            var list = dbService.GetAllItems();
+            
+            var list = itemService.GetAllItems();
             ViewData["itemList"] = list;
             
             return View();
@@ -31,6 +35,7 @@ namespace CSharp_WebApp.Controllers
        
         public IActionResult SignOut()
         {
+            Response.Cookies.Delete("LoggedUser");
             ViewData["firstName"] = null;
             LoggedUser = null;
             return RedirectToAction("Index", "Home");
@@ -43,7 +48,7 @@ namespace CSharp_WebApp.Controllers
 
         public IActionResult Add(Item item)
         {
-            dbService.AddItem(item);
+            itemService.AddItem(item);
             return RedirectToAction("AddItem","Home");
         }
 

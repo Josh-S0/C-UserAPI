@@ -4,62 +4,29 @@ using MongoDB.Driver;
 
 namespace CSharp_WebApp.Database
 {
-    public class DBService
+    public class UserService
     {
-        private readonly IMongoCollection<Item> itemCollection;
+        
         private readonly IMongoCollection<User> userCollection;
-        private readonly IMongoCollection<Order> orderCollection;
         
         public IMongoCollection<User> UserCollection
         {
             get { return userCollection; }
         }
-        public IMongoCollection<Order> OrderCollection
-        {
-            get { return orderCollection; }
-        }
-        public IMongoCollection<Item> ItemCollection
-        {
-            get { return itemCollection; }
-        }
-        public DBService(IMongoClient client)
+        
+        public UserService(IMongoClient client)
         {
             var database = client.GetDatabase("MainDB");
-            itemCollection = database.GetCollection<Item>("Items");
             userCollection = database.GetCollection<User>("Users");
-            orderCollection = database.GetCollection<Order>("Orders");
         }
-
-        public void AddItem(Item item)
-        {
-            this.itemCollection.InsertOne(item);
-
-        }
-        public List<Item> GetAllItems()
-        {
-            return itemCollection.Find(new BsonDocument()).ToList();
-        }
-        public Item GetItemById(string id)
-        {
-            var idFilter = Builders<Item>.Filter.Eq("_id", id);
-            return itemCollection.Find(idFilter).FirstOrDefault();
-        }
-        public void DeleteItemById(string id)
-        {
-            var deleteFilter = Builders<Item>.Filter.Eq("_id", id);
-            itemCollection.DeleteOne(deleteFilter);
-        }
+       
         public User GetUserByEmail(string email)
         {
             var emailFilter = Builders<User>.Filter.Eq("email", email);
             var user = userCollection.Find(emailFilter).FirstOrDefault();
             return userCollection.Find(emailFilter).FirstOrDefault();
         }
-        public Order GetOrderById(String id)
-        {
-            var idFilter = Builders<Order>.Filter.Eq("_id", id);
-            return orderCollection.Find(idFilter).FirstOrDefault();
-        }
+     
         public List<string> GetOrdersFromUserId(String userId)
         {
             var orderFilter = Builders<User>.Filter.Eq("_id", userId);

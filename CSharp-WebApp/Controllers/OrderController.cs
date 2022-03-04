@@ -8,10 +8,12 @@ namespace CSharp_WebApp.Controllers
     public class OrderController : Controller
     {
 
-        private DBService dbService;
+        private OrderService orderService;
+        private UserService userService;
         public OrderController(IMongoClient client)
         {
-            dbService = new DBService(client);
+            orderService = new OrderService(client);
+            userService = new UserService(client);
         }
                 
         public IActionResult ConfirmOrder(List<Item> items, String userId)
@@ -24,7 +26,7 @@ namespace CSharp_WebApp.Controllers
                 items = items
             };
             order.SetOrderTotal();
-            dbService.OrderCollection.InsertOne(order);
+            orderService.OrderCollection.InsertOne(order);
             UpdateOrderList(order, userId);
             return new EmptyResult();
         }
@@ -33,9 +35,9 @@ namespace CSharp_WebApp.Controllers
         public void UpdateOrderList(Order order, String userId)
         {
             var idFilter = Builders<User>.Filter.Eq("_id", userId);
-            var user = dbService.UserCollection.Find(idFilter).FirstOrDefault();
+            var user = userService.UserCollection.Find(idFilter).FirstOrDefault();
             user.orders.Add(order._id);
-            dbService.UserCollection.ReplaceOne(idFilter, user);
+            userService.UserCollection.ReplaceOne(idFilter, user);
           
 
         }
