@@ -20,14 +20,8 @@ namespace CSharp_WebApp.Controllers
         }
 
         public IActionResult Index()
-        {
-            var requestEmail = Request.Cookies["LoggedUser"];
-            if (requestEmail!= null) {
-                LoggedUser = userService.GetUserByEmail(requestEmail);
-                ViewData["firstName"] = LoggedUser.firstName; 
-            }
-            
-            var list = itemService.GetAllItems();
+        {             
+             var list = itemService.GetAll();
             ViewData["itemList"] = list;
             
             return View();
@@ -36,6 +30,7 @@ namespace CSharp_WebApp.Controllers
         public IActionResult SignOut()
         {
             Response.Cookies.Delete("LoggedUser");
+            Response.Cookies.Delete("LoggedUserName");
             ViewData["firstName"] = null;
             LoggedUser = null;
             return RedirectToAction("Index", "Home");
@@ -48,9 +43,15 @@ namespace CSharp_WebApp.Controllers
 
         public IActionResult Add(Item item)
         {
-            itemService.AddItem(item);
+            itemService.Add(item);
             return RedirectToAction("AddItem","Home");
         }
+        public void AddToBasket(Item item)
+        {
+
+           
+        }
+
 
         
         

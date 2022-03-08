@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rd+ENIiolb2wWUsDyu4BoFBUNxsqWuiwfZo9y+OcVYQ=",
+  "Hash": "23BueJhd7g7M45Lwikk418EKtC9PNvhGdaihr3wNaP0=",
   "Source": "CSharp-WebApp",
   "BasePath": "_content/CSharp-WebApp",
   "Mode": "Default",
@@ -848,6 +848,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Identity": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\wwwroot\\lib\\bootstrap\\dist\\js\\popper.min.js",
+      "SourceId": "CSharp-WebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\wwwroot\\",
+      "BasePath": "_content/CSharp-WebApp",
+      "RelativePath": "lib/bootstrap/dist/js/popper.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\popper.min.js"
     },
     {
       "Identity": "C:\\Users\\joshi\\Desktop\\Work\\GitHub\\CSharp\\CSharp-WebApp\\wwwroot\\lib\\bootstrap\\LICENSE",

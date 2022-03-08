@@ -64,6 +64,7 @@ namespace CSharp_WebApp.Controllers
             }
             else if (CheckPassword(user.password, userIn.password))
             {
+                Response.Cookies.Append("LoggedUserName", user.firstName);
                 Response.Cookies.Append("LoggedUser",user.email);
                 return RedirectToAction("Index", "Home");
 

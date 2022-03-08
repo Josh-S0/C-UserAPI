@@ -19,21 +19,21 @@ namespace CSharp_WebApp.Database
            
         }
 
-        public void AddItem(Item item)
+        public void Add(Item item)
         {
             this.itemCollection.InsertOne(item);
 
         }
-        public List<Item> GetAllItems()
+        public List<Item> GetAll()
         {
             return itemCollection.Find(new BsonDocument()).ToList();
         }
-        public Item GetItemById(string id)
+        public Item GetById(string id)
         {
             var idFilter = Builders<Item>.Filter.Eq("_id", id);
             return itemCollection.Find(idFilter).FirstOrDefault();
         }
-        public void DeleteItemById(string id)
+        public void DeleteById(string id)
         {
             var deleteFilter = Builders<Item>.Filter.Eq("_id", id);
             itemCollection.DeleteOne(deleteFilter);
